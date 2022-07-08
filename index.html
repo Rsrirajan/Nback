@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+
+<body style="font-family: sans-serif">
+  <h2>Trial Data Collection: N-back Test</h2>
+  <h4>Collect accuracy data and time of response with reference to audio file</h4>
+
+<audio id="demo" src="demo.wav"></audio>
+<audio id="right" src="good.mp3"></audio>
+<audio id="wrong" src="wrong.mp3"></audio>
+
+<img id = "black" src = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png" style = "display:none;">
+<img id = "a" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterA.png"  style = "display:none;">
+<img id = "b" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterB.png"  style = "display:none;">
+<img id = "c" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterC.png"  style = "display:none;">
+
+<div>
+    <button onclick="start()">Start Audio and N-back test</button>
+</div>
+<br>
+
+  <div id = "parent">
+    <div id = "container">
+      <div id = "rectangle">
+        <Button id = "high" onclick = "level = this.id; levelNum = 1;">High</Button>
+        <Button id = "medium" onclick = "level = this.id; levelNum = 1;">Medium</Button>
+        <Button id = "low" onclick = "level = this.id; levelNum = 1;">Low</Button>
+        <Button id = "none" onclick = "level = this.id; levelNum = 1;">None</Button>
+        <Button id = "bp" onclick = "dataTransfer(this.id, 1)">Blood Pressure</Button>
+        <Button id = "hr" onclick = "dataTransfer(this.id, 1)">Heart Rate</Button>
+        <Button id = "temp" onclick = "dataTransfer(this.id, 1)">Temperature</Button>
+        <Button id = "ventilation" onclick = "dataTransfer(this.id, 1)">Ventilation</Button>
+        <Button id = "perfusion" onclick = "dataTransfer(this.id, 1)">Perfusion</Button>
+        <Button id = "drugdelivery" onclick = "dataTransfer(this.id, 1)">Drug Delivery</Button>
+        <Button id = "oxygenation" onclick = "dataTransfer(this.id, 1)">Oxygenation</Button>
+        <Button id = "failure" onclick = "dataTransfer(this.id, 1)">Failure</Button>
+      </div>
+      <div id = "centered">Patient 1</div>
+    </div>
+
+    <div>
+      <Button id = "display_image" onclick = "isGood()">
+        <script>
+          var clicks = 0;
+          var runs;
+          var temp1;
+          var temp2;
+          var displaying = 4;
+          var letter;
+          var letters = Array(document.getElementById("a"), document.getElementById("b"), document.getElementById("c"));
+
+          function run(){
+              temp1 = Math.floor(Math.random()*3);
+              display(temp1);
+              displayBlack();
+
+              temp2 = Math.floor(Math.random()*3);
+              display(temp2);
+              displayBlack();
+
+              setInterval(() => {
+                runs++;
+                displaying = Math.floor(Math.random()*3);
+                letter = letters[displaying];
+                letter.style.display = "block";
+                window.setTimeout("letter.style.display='none';", 1500);
+                displayBlack();
+                if (runs % 2 === 0){
+                  temp2 = displaying;
+                }
+                else{
+                  temp1 = displaying;
+                }
+              }, 3000)
+            }
+
+          function isGood(){
+            if (!demo.paused || demo.currentTime){
+              if (runs %2 === 0){
+                if (temp2 === displaying){
+                  document.getElementById('right').play();
+                  console.log("right");
+                }
+                else{
+                  document.getElementById('wrong').play();
+                  console.log("wrong");
+                }
+              }
+              else{
+                if (temp1 === displaying){
+                  document.getElementById('right').play();
+                  console.log("right");
+                }
+                else{
+                  document.getElementById('wrong').play();
+                  console.log("wrong");
+                }
+              }
+            }
+
+          }
+
+
+          function display(num){
+            letter = letters[num];
+            letter.style.display = "block";
+            window.setTimeout("letter.style.display='none';", 1500);
+          }
+          function displayBlack(){
+            document.getElementById("black").style.display = "block";
+            window.setTimeout("document.getElementById('black').style.display='none';", 1500);
+          }
+
+          function start(){
+            clicks++;
+            document.getElementById('demo').play();
+            if (clicks == 1){
+              run();
+            }
+          }
+
+
+        </script>
+      </Button>
+    </div>
+
+    <div id = "container">
+      <div id = "rectangle2">
+        <Button id = "high" onclick = "level = this.id; levelNum = 2;">High</Button>
+        <Button id = "medium" onclick = "level = this.id; levelNum = 2;">Medium</Button>
+        <Button id = "low" onclick = "level = this.id; levelNum = 2;">Low</Button>
+        <Button id = "none" onclick = "level = this.id; levelNum = 2;">None</Button>
+        <Button id = "bp" onclick = "dataTransfer(this.id, 2)">Blood Pressure</Button>
+        <Button id = "hr" onclick = "dataTransfer(this.id, 2)">Heart Rate</Button>
+        <Button id = "temp" onclick = "dataTransfer(this.id, 2)">Temperature</Button>
+        <Button id = "ventilation" onclick = "dataTransfer(this.id, 2)">Ventilation</Button>
+        <Button id = "perfusion" onclick = "dataTransfer(this.id, 2)">Perfusion</Button>
+        <Button id = "drugdelivery" onclick = "dataTransfer(this.id, 2)">Drug Delivery</Button>
+        <Button id = "oxygenation" onclick = "dataTransfer(this.id, 2)">Oxygenation</Button>
+        <Button id = "failure" onclick = "dataTransfer(this.id, 2)">Failure</Button>
+
+
+      </div>
+      <div id = "centered">Patient 2</div>
+    </div>
+  </div>
+<script>
+  var level;
+  var levelNum;
+  function dataTransfer(button_id, patientNum){
+    var demo = document.getElementById("demo");
+    var timestamp = demo.currentTime;
+    var min = Math.floor(timestamp / 60);
+    var sec = Math.floor(timestamp %60);
+
+    if (timestamp == 0){
+      return;
+    }
+    var patientNum;
+    if (levelNum != patientNum){
+      console.log("Can't select buttons from different patients!");
+      return;
+    }
+    console.log(min,"min ",sec, "sec", ", ", level, button_id, ", ",patientNum);
+  }
+
+  //var totalRight;
+  //var totalWrong;
+  //var right = document.getElementById("right");
+  //var wrong = document.getElementById("wrong");
+  //function rightOrWrong(){
+    //if (!right.paused || right.currentTime){
+      //totalRight += 1;
+      //console.log("Total right: ",totalRight, " Total Wrong: ",totalWrong);
+    //}
+    //if (!wrong.paused || wrong.currentTime){
+      //totalRight += 1;
+      //console.log("Total right: ",totalRight, " Total Wrong: ",totalWrong);
+    //}
+  //}
+
+</script>
+</body>
+
+</html>
