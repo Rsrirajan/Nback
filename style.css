@@ -109,3 +109,13 @@ img {
         position:absolute;
         object-position: center;
     }
+video {
+  display: block;
+  width:400px;
+  height:300px;
+  border-radius: 25px;
+  margin: 5px;
+  object-position: center;
+  position: absolute;
+  overflow: hidden;
+}
