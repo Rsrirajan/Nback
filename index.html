@@ -8,23 +8,44 @@
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
+<script type = "text/javascript" src = "script.js"></script>
+
 
 
 <body style="font-family: sans-serif">
   <h2>Trial Data Collection: N-back Test</h2>
   <h4>Collect accuracy data and time of response with reference to audio file</h4>
 
-<audio id="demo" src="demo.wav"></audio>
+<audio id="1" src="demo.wav"></audio>
+<audio id="2" src="https://www.youtube.com/watch?v=G0lYgEuHrgc"></audio>
+<audio id="3" src="https://www.youtube.com/watch?v=RdvoZCVGT7o"></audio>
+
+<a href = "https://medium.com/@codefoxx/how-to-count-the-number-of-visits-on-your-website-with-html-css-javascript-and-the-count-api-2f99b42b5990" id = "survey" target = "_blank" style = "display: none;">Survey Link</a>
+
+
 <audio id="right" src="good.mp3"></audio>
 <audio id="wrong" src="wrong.mp3"></audio>
 
-<img id = "black" src = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png" style = "display:none;">
-<img id = "a" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterA.png"  style = "display:none;">
-<img id = "b" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterB.png"  style = "display:none;">
-<img id = "c" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterC.png"  style = "display:none;">
+<img id = "a" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterA.png"  style = "display:none;" onclick = "isGood()">
+<img id = "b" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterB.png"  style = "display:none;" onclick = "isGood()">
+<img id = "c" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterC.png"  style = "display:none;" onclick = "isGood()">
+<img id = "d" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterD.png"  style = "display:none;" onclick = "isGood()">
+<img id = "e" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterE.png"  style = "display:none;" onclick = "isGood()">
+<img id = "h" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterH.png"  style = "display:none;" onclick = "isGood()">
+<img id = "i" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterI.png"  style = "display:none;" onclick = "isGood()">
+<img id = "k" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterK.png"  style = "display:none;" onclick = "isGood()">
+<img id = "l" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterL.png"  style = "display:none;" onclick = "isGood()">
+<img id = "m" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterM.png"  style = "display:none;" onclick = "isGood()">
+<img id = "o" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterO.png"  style = "display:none;" onclick = "isGood()">
+<img id = "p" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterP.png"  style = "display:none;" onclick = "isGood()">
+<img id = "r" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterR.png"  style = "display:none;" onclick = "isGood()">
+<img id = "s" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterS.png"  style = "display:none;" onclick = "isGood()">
+<img id = "t" src = "https://raw.githubusercontent.com/AnanthSankaralingam/N2-Back/main/letterT.png"  style = "display:none;" onclick = "isGood()">
+
+<video id = "video" src = "Movie.mov" onclick = "isGood()" onended = "document.getElementById('start').style.display = 'block';"></video>
 
 <div>
-    <button onclick="start()">Start Audio and N-back test</button>
+    <button id = "start" onclick="start()" style = "display:none;">Start Audio and Nback Test</button>
 </div>
 <br>
 
@@ -49,87 +70,6 @@
 
     <div>
       <Button id = "display_image" onclick = "isGood()">
-        <script>
-          var clicks = 0;
-          var runs;
-          var temp1;
-          var temp2;
-          var displaying = 4;
-          var letter;
-          var letters = Array(document.getElementById("a"), document.getElementById("b"), document.getElementById("c"));
-
-          function run(){
-              temp1 = Math.floor(Math.random()*3);
-              display(temp1);
-              displayBlack();
-
-              temp2 = Math.floor(Math.random()*3);
-              display(temp2);
-              displayBlack();
-
-              setInterval(() => {
-                runs++;
-                displaying = Math.floor(Math.random()*3);
-                letter = letters[displaying];
-                letter.style.display = "block";
-                window.setTimeout("letter.style.display='none';", 1500);
-                displayBlack();
-                if (runs % 2 === 0){
-                  temp2 = displaying;
-                }
-                else{
-                  temp1 = displaying;
-                }
-              }, 3000)
-            }
-
-          function isGood(){
-            if (!demo.paused || demo.currentTime){
-              if (runs %2 === 0){
-                if (temp2 === displaying){
-                  document.getElementById('right').play();
-                  console.log("right");
-                }
-                else{
-                  document.getElementById('wrong').play();
-                  console.log("wrong");
-                }
-              }
-              else{
-                if (temp1 === displaying){
-                  document.getElementById('right').play();
-                  console.log("right");
-                }
-                else{
-                  document.getElementById('wrong').play();
-                  console.log("wrong");
-                }
-              }
-            }
-
-          }
-
-
-          function display(num){
-            letter = letters[num];
-            letter.style.display = "block";
-            window.setTimeout("letter.style.display='none';", 1500);
-          }
-          function displayBlack(){
-            document.getElementById("black").style.display = "block";
-            window.setTimeout("document.getElementById('black').style.display='none';", 1500);
-          }
-
-          function start(){
-            clicks++;
-            document.getElementById('demo').play();
-            if (clicks == 1){
-              run();
-            }
-          }
-
-
-        </script>
       </Button>
     </div>
 
@@ -154,10 +94,125 @@
     </div>
   </div>
 <script>
+  var runs = 0;
+  var rows = ["CSV Data File"];
+  var temp1;
+  var temp2;
+  var displaying = 4;
+  var letter;
+  var letters = Array(document.getElementById("a"), document.getElementById("b"), document.getElementById("c"), document.getElementById("d"), document.getElementById("e"), document.getElementById("h"), document.getElementById("i"), document.getElementById("k"), document.getElementById("l"), document.getElementById("m"), document.getElementById("o"), document.getElementById("p"), document.getElementById("r"), document.getElementById("s"), document.getElementById("t"));
+  var users;
+
+  function run(){
+
+    const interval = setInterval(() => {
+        runs++;
+        if (runs == 1){
+          temp1 = Math.floor(Math.random()*15);
+          display(temp1);
+          console.log(temp1);
+        }
+        else if (runs == 2){
+          temp2 = Math.floor(Math.random()*15);
+          display(temp2);
+          console.log(temp2);
+        }
+        else if (demo.currentTime > 30){
+          demo.pause();
+          var csvContent = "";
+
+          rows.forEach(function(row) {
+            if (typeof row[0] === "number"){
+                        csvContent += row.join(',') + "\n";
+                    }
+            else{
+              csvContent += row + "\n";
+            }
+          });
+          var hiddenElement = document.createElement('a');
+          hiddenElement.href = 'data:attachment/text,' + encodeURI(csvContent);
+          hiddenElement.target = '_blank';
+          hiddenElement.download = 'alarm_trial_data.csv';
+          hiddenElement.click();
+
+          clearInterval(interval);
+          document.getElementById('survey').style.display = "block";
+
+        }
+        else{
+          displaying = Math.floor(Math.random()*15);
+          letter = letters[displaying];
+          letter.style.display = "block";
+          window.setTimeout("letter.style.display='none';", 1500);
+
+          setTimeout(() => {
+            if (runs % 2 == 0){
+              temp2 = displaying;
+            }
+            else{
+              temp1 = displaying;
+            }
+          }, 1499)
+
+        }
+      }, 3000)
+
+
+
+    }
+
+  function isGood(){
+    console.log(temp1, temp2, displaying);
+    if (runs == 0){
+        video.play();
+    }
+    else if ((!demo.paused || demo.currentTime) && runs > 2){
+      if (runs %2 == 0){
+        if (temp2 == displaying){
+          document.getElementById('right').play();
+          rows.push(['right'])
+          console.log("right1");
+        }
+        else{
+          document.getElementById('wrong').play();
+          rows.push(['wrong'])
+          console.log("wrong1");
+        }
+      }
+      else{
+        if (temp1 === displaying){
+          document.getElementById('right').play();
+          rows.push(["right"])
+          console.log("right2");
+        }
+        else{
+          document.getElementById('wrong').play();
+          rows.push(["wrong"])
+          console.log("wrong2");
+        }
+      }
+    }
+
+  }
+
+
+  function display(num){
+    letter = letters[num];
+    letter.style.display = "block";
+    window.setTimeout("letter.style.display='none';", 1500);
+  }
+
+  function start(){
+    video.style.display = "none";
+    demo.play();
+    run();
+  }
+
   var level;
   var levelNum;
+  var demo = document.getElementById("1");
+  var video = document.getElementById("video")
   function dataTransfer(button_id, patientNum){
-    var demo = document.getElementById("demo");
     var timestamp = demo.currentTime;
     var min = Math.floor(timestamp / 60);
     var sec = Math.floor(timestamp %60);
@@ -170,23 +225,10 @@
       console.log("Can't select buttons from different patients!");
       return;
     }
+    rows.push([min, sec, level, button_id, patientNum]);
     console.log(min,"min ",sec, "sec", ", ", level, button_id, ", ",patientNum);
-  }
 
-  //var totalRight;
-  //var totalWrong;
-  //var right = document.getElementById("right");
-  //var wrong = document.getElementById("wrong");
-  //function rightOrWrong(){
-    //if (!right.paused || right.currentTime){
-      //totalRight += 1;
-      //console.log("Total right: ",totalRight, " Total Wrong: ",totalWrong);
-    //}
-    //if (!wrong.paused || wrong.currentTime){
-      //totalRight += 1;
-      //console.log("Total right: ",totalRight, " Total Wrong: ",totalWrong);
-    //}
-  //}
+  }
 
 </script>
 </body>
